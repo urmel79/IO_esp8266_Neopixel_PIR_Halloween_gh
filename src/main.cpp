@@ -9,6 +9,7 @@
 #include "function_fastled_pir.hpp"
 
 void setup() {
+
   Serial.begin(9600);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -32,6 +33,8 @@ void loop() {
   function_ota_handle();  // call handler function for OTA
 
   function_pir_change_palettes();
+
+  function_pir_handle_timer();
 
   function_Fire2012WithPalette(); // run simulation frame, using palette colors
 

@@ -2,6 +2,13 @@
 
 bool gReverseDirection = false;
 
+#if defined(BOX_HAS_PIR)
+  unsigned long g_ul_PIR_lastTrigger = 0;
+  unsigned long g_ul_PIR_time_span = 0;
+  boolean g_b_PIR_startTimer = false;
+  const int g_ci_PIR_delayTime = 5;
+#endif
+
 CRGB leds[NUM_LEDS];
 
 // Fire2012 with programmable Color Palette
@@ -34,10 +41,12 @@ CRGB leds[NUM_LEDS];
 CRGBPalette16 gPal;
 
 void function_pir_setup( void ) {
-#ifdef PIR_PIN
+#ifdef BOX_HAS_PIR
   // PIR Motion Sensor mode INPUT_PULLUP
   pinMode(PIR_PIN, INPUT_PULLUP);
   pinMode(LED_PIN, OUTPUT);
+
+  attachInterrupt(digitalPinToInterrupt(PIR_PIN), interrupt_pir_motion_detection, HIGH);
 #endif
 }
 
@@ -135,17 +144,16 @@ void function_Fire2012WithPalette( void ) {
 }
 
 void function_pir_change_palettes( void ) {
-#ifdef PIR_PIN
-  if (!digitalRead(PIR_PIN)) {
+#ifdef BOX_HAS_PIR
+  if (!g_b_PIR_startTimer) {
     gPal = HeatColors_p;
-    digitalWrite(LED_PIN, HIGH); // due to negative logic of internal Wifi LED of Wemos D1 mini
   }
   else {
     //gPal = CRGBPalette16( CRGB::Black, CRGB::Blue, CRGB::Aqua,  CRGB::White );
     //gPal = CRGBPalette16( CRGB::Black, CRGB::Green, CRGB::Purple,  CRGB::White );
     gPal = CRGBPalette16( CRGB::Green, CRGB::Blue );
     // gPal = CRGBPalette16( CRGB::Purple, CRGB::White );
-    digitalWrite(LED_PIN, LOW); // due to negative logic of internal Wifi LED of Wemos D1 mini
+    // digitalWrite(LED_PIN, LOW); // due to negative logic of internal Wifi LED of Wemos D1 mini
   }
 #else
   gPal = HeatColors_p;
@@ -159,8 +167,39 @@ void function_fastled_handle( void ) {
   FastLED.delay(1000 / FRAMES_PER_SECOND);
 }
 
+// Checks if motion was detected, sets LED HIGH and starts a timer
+// Note: IRAM_ATTR is used to run the interrupt code in RAM,
+// otherwise code is stored in flash and it’s slower.
+// void IRAM_ATTR detectsMovement() {     // IRAM_ATTR for esp32
+void ICACHE_RAM_ATTR interrupt_pir_motion_detection() {  // ICACHE_RAM_ATTR for esp8266
+#if defined(BOX_HAS_PIR)
+  Serial.println("### I C U ! ###");
 
+  digitalWrite(LED_PIN, LOW); // due to negative logic of internal Wifi LED of Wemos D1 mini
 
+  // // count detections
+  // g_i_PIR_count_per_minute++;
+  g_ul_PIR_lastTrigger = millis();
 
+  g_b_PIR_startTimer = true;
+#endif
+}
+
+void function_pir_handle_timer( void ) {
+#if defined(BOX_HAS_PIR)
+  g_ul_PIR_time_span = (millis() - g_ul_PIR_lastTrigger) / 1000; // (current time [ms] - last Trigger) in s
+
+  // Turn off the LED after the number of seconds defined in the timeSeconds variable
+  if(g_b_PIR_startTimer && (g_ul_PIR_time_span > g_ci_PIR_delayTime)) {
+    Serial.println("### Hrmph - You're GONE ... ###");
+    Serial.print("Motion stopped after ");
+    Serial.print(g_ul_PIR_time_span);
+    Serial.println(" s");
+
+    digitalWrite(LED_PIN, HIGH); // due to negative logic of internal Wifi LED of Wemos D1 mini
+    g_b_PIR_startTimer = false;
+  }
+#endif
+}
 
 //

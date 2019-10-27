@@ -6,10 +6,12 @@
 // choose hostname and sensors (done by build_flags in platformio.ini)
 #ifdef WEMOS_D1_MINI
   #define HOSTNAME "Wemos_D1_mini"
+  #define BOX_HAS_PIR     // PIR Bewegungsmelder
   // #define BOX_HAS_CCS811  // CO2-Sensor
   // #define BOX 'esp8266_d1_mini'
 #elif WEMOS_D1_MINI_PRO
   #define HOSTNAME "Wemos_D1_mini_pro"
+  #define BOX_HAS_PIR     // PIR Bewegungsmelder
   // #define BOX_HAS_CCS811  // CO2-Sensor
   // #define BOX 'esp8266_d1_box'
 #elif NODE_MCU_LORA_1
