@@ -1,12 +1,14 @@
 #include "function_fastled_pir.hpp"
 
+#include "function_dfplayer.hpp"
+
 bool gReverseDirection = false;
 
 #if defined(BOX_HAS_PIR)
   unsigned long g_ul_PIR_lastTrigger = 0;
   unsigned long g_ul_PIR_time_span = 0;
   boolean g_b_PIR_startTimer = false;
-  const int g_ci_PIR_delayTime = 5;
+  const int g_ci_PIR_delayTime = 10; // delay in [s]
 #endif
 
 CRGB leds[NUM_LEDS];
@@ -47,6 +49,12 @@ void function_pir_setup( void ) {
   pinMode(LED_PIN, OUTPUT);
 
   attachInterrupt(digitalPinToInterrupt(PIR_PIN), interrupt_pir_motion_detection, HIGH);
+
+  // setup DFPlayer
+  function_mp3_setup();
+
+  // switch wifi LED off
+  digitalWrite(LED_PIN, HIGH); // due to negative logic of internal Wifi LED of Wemos D1 mini
 #endif
 }
 
@@ -177,6 +185,13 @@ void ICACHE_RAM_ATTR interrupt_pir_motion_detection() {  // ICACHE_RAM_ATTR for 
 
   digitalWrite(LED_PIN, LOW); // due to negative logic of internal Wifi LED of Wemos D1 mini
 
+  // start playing alarm sound
+  // function_mp3_set_volume(1); // set volume (range: 0 - 30)
+  function_mp3_alarm_play(4); // play track number
+
+  // random play doesn't work => why?
+  // function_mp3_alarm_play_rndm();
+
   // // count detections
   // g_i_PIR_count_per_minute++;
   g_ul_PIR_lastTrigger = millis();
@@ -197,6 +212,10 @@ void function_pir_handle_timer( void ) {
     Serial.println(" s");
 
     digitalWrite(LED_PIN, HIGH); // due to negative logic of internal Wifi LED of Wemos D1 mini
+
+    // stop playing alarm sound
+    function_mp3_alarm_stop();
+
     g_b_PIR_startTimer = false;
   }
 #endif

@@ -15,11 +15,6 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
-  function_pir_setup();
-
-  delay(2000); // sanity delay
-  function_fastled_setup();
-
   configureWifi();
 
   delay(2000); // sanity delay
@@ -27,6 +22,11 @@ void setup() {
   // configureMqtt(); // setup MQTT functionality
 
   connectToWifi();
+
+  function_pir_setup();
+
+  delay(2000); // sanity delay
+  function_fastled_setup();
 }
 
 void loop() {
