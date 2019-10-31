@@ -18,6 +18,7 @@
 #include <SoftwareSerial.h> //Included SoftwareSerial Library
 
 // install "DFPlayer Mini Mp3 by Makuna"
+// https://github.com/Makuna/DFMiniMp3
 #include <DFMiniMp3.h>
 
 /*enum DfMp3_Error
