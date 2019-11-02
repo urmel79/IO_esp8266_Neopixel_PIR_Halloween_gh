@@ -8,7 +8,7 @@ bool gReverseDirection = false;
   unsigned long g_ul_PIR_lastTrigger = 0;
   unsigned long g_ul_PIR_time_span = 0;
   boolean g_b_PIR_startTimer = false;
-  const int g_ci_PIR_delayTime = 10; // delay in [s]
+  const int g_ci_PIR_delayTime = 9; // delay in [s]
 #endif
 
 CRGB leds[NUM_LEDS];
@@ -187,7 +187,7 @@ void ICACHE_RAM_ATTR interrupt_pir_motion_detection() {  // ICACHE_RAM_ATTR for 
 
   // start playing alarm sound
   // function_mp3_set_volume(1); // set volume (range: 0 - 30)
-  function_mp3_alarm_play(4); // play track number
+  function_mp3_alarm_play(2, 14); // play track number
 
   // random play doesn't work => why?
   // function_mp3_alarm_play_rndm();

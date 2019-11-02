@@ -196,14 +196,14 @@ void function_mp3_setup() {
   // stop all playing
   mp3.stop();
 
-  uint16_t volume = mp3.getVolume();
-  Serial.print("DFPlayer: volume ");
-  Serial.println(volume);
-  mp3.setVolume(30); // volume range: 0 - 30
+  // uint16_t volume = mp3.getVolume();
+  // Serial.print("DFPlayer: volume ");
+  // Serial.println(volume);
+  mp3.setVolume(25); // volume range: 0 - 30
 
-  uint16_t count = mp3.getTotalTrackCount();
-  Serial.print("DFPlayer: files ");
-  Serial.println(count);
+  // uint16_t count = mp3.getTotalTrackCount();
+  // Serial.print("DFPlayer: files ");
+  // Serial.println(count);
 }
 
 // // volume range: 0 - 30
@@ -213,10 +213,14 @@ void function_mp3_setup() {
 //   mp3.setVolume( volume );
 // }
 
-void function_mp3_alarm_play(uint16_t track) {
+void function_mp3_alarm_play(uint8_t folder, uint16_t track) {
   Serial.print("DFPlayer: playing track ");
   Serial.println(track);
-  mp3.playMp3FolderTrack( track );  // sd:/mp3/0001.mp3
+  // mp3.playMp3FolderTrack( track );  // sd:/mp3/0001.mp3
+
+  // sd:/##/####track name
+  // track number must be four digits, zero padded
+  mp3.playFolderTrack16( folder, track );
 }
 
 // random play doesn't work => why?
