@@ -31,7 +31,7 @@ bool initSS_mp3();
 
 void function_mp3_setup();
 
-// void function_mp3_set_volume(uint8_t volume);
+void function_mp3_set_volume(uint8_t volume);
 
 void function_mp3_alarm_play(uint8_t folder, uint16_t track);
 

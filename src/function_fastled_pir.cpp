@@ -181,22 +181,25 @@ void function_fastled_handle( void ) {
 // void IRAM_ATTR detectsMovement() {     // IRAM_ATTR for esp32
 void ICACHE_RAM_ATTR interrupt_pir_motion_detection() {  // ICACHE_RAM_ATTR for esp8266
 #if defined(BOX_HAS_PIR)
-  Serial.println("### I C U ! ###");
+  // don't start again while playing
+  if ( !g_b_PIR_startTimer ) {
+    Serial.println("### I C U ! ###");
 
-  digitalWrite(LED_PIN, LOW); // due to negative logic of internal Wifi LED of Wemos D1 mini
+    digitalWrite(LED_PIN, LOW); // due to negative logic of internal Wifi LED of Wemos D1 mini
 
-  // start playing alarm sound
-  // function_mp3_set_volume(1); // set volume (range: 0 - 30)
-  function_mp3_alarm_play(2, 14); // play track number
+    // start playing alarm sound
+    function_mp3_alarm_play(2, 14); // play in folder 02 track number 14
 
-  // random play doesn't work => why?
-  // function_mp3_alarm_play_rndm();
+    // random play doesn't work => why?
+    // function_mp3_alarm_play_rndm();
 
-  // // count detections
-  // g_i_PIR_count_per_minute++;
-  g_ul_PIR_lastTrigger = millis();
+    // // count detections
+    // g_i_PIR_count_per_minute++;
+    g_ul_PIR_lastTrigger = millis();
 
-  g_b_PIR_startTimer = true;
+    g_b_PIR_startTimer = true;
+  }
+  else Serial.println("### Don't start again while playing ###");
 #endif
 }
 

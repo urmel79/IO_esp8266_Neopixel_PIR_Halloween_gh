@@ -196,26 +196,36 @@ void function_mp3_setup() {
   // stop all playing
   mp3.stop();
 
-  // uint16_t volume = mp3.getVolume();
-  // Serial.print("DFPlayer: volume ");
-  // Serial.println(volume);
+  uint16_t volume = mp3.getVolume();
+  Serial.print("DFPlayer: volume ");
+  Serial.println(volume);
   mp3.setVolume(25); // volume range: 0 - 30
 
-  // uint16_t count = mp3.getTotalTrackCount();
-  // Serial.print("DFPlayer: files ");
-  // Serial.println(count);
+  uint16_t count = mp3.getTotalFolderCount();
+  Serial.print("DFPlayer: total folders on sdcard ");
+  Serial.println(count);
+
+  count = mp3.getTotalTrackCount();
+  Serial.print("DFPlayer: total files on sdcard ");
+  Serial.println(count);
 }
 
-// // volume range: 0 - 30
-// void function_mp3_set_volume(uint8_t volume) {
-//   Serial.print("DFPlayer: setting volume to ");
-//   Serial.println(volume);
-//   mp3.setVolume( volume );
-// }
+// volume range: 0 - 30
+// important: don't use it in ISRs (may cause crashes and strange reboots) => why?
+void function_mp3_set_volume(uint8_t volume) {
+  // check intervall
+  if ( volume > 30 ) volume = 30;
+  if ( volume < 0 ) volume = 0;
+  Serial.print("DFPlayer: setting volume to ");
+  Serial.println(volume);
+  mp3.setVolume( volume );
+}
 
 void function_mp3_alarm_play(uint8_t folder, uint16_t track) {
   Serial.print("DFPlayer: playing track ");
-  Serial.println(track);
+  Serial.print( track );
+  Serial.print(" in folder ");
+  Serial.println( folder );
   // mp3.playMp3FolderTrack( track );  // sd:/mp3/0001.mp3
 
   // sd:/##/####track name
