@@ -25,4 +25,5 @@ Folgende Bauteile habe ich verbaut (abgesehen von einem Breadboard mit den entsp
 
 ## Schaltplan
 
-Mit Fritzing () habe ich folgenden Schaltplan erstellt:
+Mit Fritzing (https://fritzing.org) habe ich folgenden Schaltplan erstellt:
+
