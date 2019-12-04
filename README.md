@@ -30,3 +30,6 @@ Mit Fritzing (https://fritzing.org) habe ich folgenden Schaltplan erstellt:
 ![Schaltplan](/Pfad/zum/Bild.jpg)
 
 (wird noch ergänzt!)
+
+## Bibliotheken
+
