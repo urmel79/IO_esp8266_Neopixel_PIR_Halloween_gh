@@ -22,14 +22,33 @@ Folgende Bauteile habe ich verbaut (abgesehen von einem Breadboard mit den entsp
 - microSD-Karte (16 GB)
 - passiver Lautsprecher, 2 W, 8 Ohm
 - PIR-Modul (Bewegungsmelder)
+- Resistor 1 kOhm (for protecting RxD of DFPlayer)
+- Capacitor 1000 µF (protecting the Neopixel LED module)
 
-## Schaltplan
+## Breadboard layout and schematics
 
-Mit Fritzing (https://fritzing.org) habe ich folgenden Schaltplan erstellt:
+<!-- Mit Fritzing (https://fritzing.org) habe ich folgenden Schaltplan erstellt: -->
+With *Fritzing* (https://fritzing.org) I have created following breadboard layout:
 
-![Schaltplan](/Pfad/zum/Bild.jpg)
+![Breadboard Layout](./fritzing/esp8266_Neopixel_PIR_Halloween_Breadboard.png)
 
-(wird noch ergänzt!)
+The schematics looks like this:
 
-## Bibliotheken
+![Schematics](./fritzing/esp8266_Neopixel_PIR_Halloween_Schematics.png)
 
+## Software libraries
+
+## SDcard: file/folder layout
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  -->
