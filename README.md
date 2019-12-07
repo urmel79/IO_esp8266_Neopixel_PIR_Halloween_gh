@@ -36,8 +36,6 @@ The schematics looks like this:
 
 ![Schematics](./fritzing/esp8266_Neopixel_PIR_Halloween_Schematics.png)
 
-![Schematics](./fritzing/esp8266_Neopixel_PIR_Halloween_Schematics.png)
-
 ## Software libraries
 
 ## SDcard: file/folder layout
