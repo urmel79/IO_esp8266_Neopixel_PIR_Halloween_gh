@@ -54,21 +54,21 @@ Install the DFMiniMp3 library "DFPlayer Mini Mp3 by Makuna": https://github.com/
 
 The sensor output pin has to be connected to a interrupt capable input pin. No special library is needed. Cover the interrupt service routine (ISR) by ICACHE_RAM_ATTR to run the interrupt code in RAM, otherwise code is stored in flash and it’s slower.
 
-``
+```c++
 void ICACHE_RAM_ATTR interrupt_pir_motion_detection() {
 
 }
-``
+```
 
 ## SDcard: file/folder layout
 
 The DFPlayer and the DFMiniMp3 library expects the sd card to contain these mp3 files like this folder/file scheme:
 
-``
+```
 sd:/mp3/0001_xxx.mp3
 sd:/mp3/0002_xxx.mp3
 sd:/mp3/0003_xxx.mp3
-``
+```
 
 ## Todo and known issues
 
