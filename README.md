@@ -19,13 +19,14 @@ Following parts I have used in this project:
 - breadboard half+ (400 holes)
 - wire jumpers
 - LiPo battery pack
+- USB cable with mini USB plug
 - breadboard power supply (with Mini-USB-**Input**)
 - Wemos D1 Mini pro (ESP8266)
-- Neopixel RGB LED ring, (with 12 seperate controllable RGB LEDs by WS2812B chip)
-- DFPlayer clone (mp3 sound module)
+- Neopixel RGB LED ring, diameter 50 mm (with 12 seperate controllable RGB LEDs by WS2812B chip)
+- DFPlayer mini MP3 player module
 - microSD card (16 GB)
 - passive speaker (2 W, 8 Ohm)
-- PIR module (motion sensor)
+- PIR module (motion sensor based on HC-SR501)
 - resistor 1 kOhm (for protecting RxD input of DFPlayer)
 - capacitor 1000 µF (protecting the Neopixel LED module)
 
@@ -42,7 +43,6 @@ The schematics looks like this:
 ## Software libraries
 
 ## SDcard: file/folder layout
-
 
 ## Todo and known issues
 
