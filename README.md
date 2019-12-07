@@ -32,21 +32,16 @@ With *Fritzing* (https://fritzing.org) I have created following breadboard layou
 
 ![Breadboard Layout](./fritzing/esp8266_Neopixel_PIR_Halloween_Breadboard.png)
 
-<<<<<<< HEAD
 The schematics looks like this:
-=======
-![Schematics](./fritzing/esp8266_Neopixel_PIR_Halloween_Schematics.png)
->>>>>>> 6404c74c734477e33936a55e93f3d9444b52b261
 
 ![Schematics](./fritzing/esp8266_Neopixel_PIR_Halloween_Schematics.png)
 
-<<<<<<< HEAD
 ## Software libraries
 
 ## SDcard: file/folder layout
-=======
+
+
 ## Mp3 Module: file/folder layout
->>>>>>> 6404c74c734477e33936a55e93f3d9444b52b261
 
 
 
