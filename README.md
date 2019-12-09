@@ -18,7 +18,10 @@ This is an image of the breadboard mounted on the LiPo battery pack:
 
 I have also made a little video clip and uploaded to YT:
 
-[![Watch the video](https://img.youtube.com/vi/xcfkGeqj5mk/maxresdefault.jpg)](https://youtu.be/xcfkGeqj5mk)
+<!-- [![Watch the video](https://img.youtube.com/vi/xcfkGeqj5mk/maxresdefault.jpg)](https://youtu.be/xcfkGeqj5mk) -->
+[![Watch the video](./doc/media/yt_start_screen.png)](https://youtu.be/xcfkGeqj5mk)
+
+
 
 ## Parts list
 
