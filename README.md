@@ -6,7 +6,7 @@ An additional PIR motion sensor connected via an interrupt input recognizes move
 
 The basic idea comes from the blog at AZ-Delivery: https://www.az-delivery.de/blogs/azdelivery-blog-fur-arduino-und-raspberry-pi/halloween-2019-der-kuerbis-erwacht-wieder.
 
-## Visual impression
+## Visual impressions
 
 Here you can see the complete Halloween Pumpkin arrangement:
 
