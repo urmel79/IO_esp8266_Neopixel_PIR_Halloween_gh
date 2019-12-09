@@ -16,7 +16,7 @@ This is an image of the breadboard mounted on the LiPo battery pack:
 
 ![Halloween Pumpkin breadboard](./doc/media/Halloween_pumpkin_breadboard.jpeg)
 
-I have also made a little video clip and uploaded to YT:
+I have also made a little video clip and uploaded to YT (do a CTRL+click for opneing in new tab):
 
 <!-- [![Watch the video](https://img.youtube.com/vi/xcfkGeqj5mk/maxresdefault.jpg)](https://youtu.be/xcfkGeqj5mk) -->
 [![Watch the video](./doc/media/yt_start_screen.png)](https://youtu.be/xcfkGeqj5mk)
