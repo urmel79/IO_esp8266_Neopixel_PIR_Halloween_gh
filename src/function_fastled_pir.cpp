@@ -2,6 +2,8 @@
 
 #include "function_dfplayer.hpp"
 
+#include "function_webserial.hpp"
+
 bool gReverseDirection = false;
 
 #if defined(BOX_HAS_PIR)
@@ -52,6 +54,9 @@ void function_pir_setup( void ) {
 
   // setup DFPlayer
   function_mp3_setup();
+
+  // volume range: 0 - 30
+  function_mp3_set_volume(10);
 
   // switch wifi LED off
   digitalWrite(LED_PIN, HIGH); // due to negative logic of internal Wifi LED of Wemos D1 mini
@@ -175,6 +180,8 @@ void function_fastled_handle( void ) {
   FastLED.delay(1000 / FRAMES_PER_SECOND);
 }
 
+WebSerialClass *webserial = function_webserial_get_object();
+
 // Checks if motion was detected, sets LED HIGH and starts a timer
 // Note: IRAM_ATTR is used to run the interrupt code in RAM,
 // otherwise code is stored in flash and it’s slower.
@@ -184,6 +191,7 @@ void ICACHE_RAM_ATTR interrupt_pir_motion_detection() {  // ICACHE_RAM_ATTR for 
   // don't start again while playing
   if ( !g_b_PIR_startTimer ) {
     Serial.println("### I C U ! ###");
+    webserial->println("### I C U ! ###");
 
     digitalWrite(LED_PIN, LOW); // due to negative logic of internal Wifi LED of Wemos D1 mini
 
@@ -199,7 +207,11 @@ void ICACHE_RAM_ATTR interrupt_pir_motion_detection() {  // ICACHE_RAM_ATTR for 
 
     g_b_PIR_startTimer = true;
   }
-  else Serial.println("### Don't start again while playing ###");
+  else {
+    Serial.println("### Don't start again while playing ###");
+    webserial->println("### Don't start again while playing ###");
+  }
+
 #endif
 }
 
@@ -213,6 +225,11 @@ void function_pir_handle_timer( void ) {
     Serial.print("Motion stopped after ");
     Serial.print(g_ul_PIR_time_span);
     Serial.println(" s");
+
+    webserial->println("### Hrmph - You're GONE ... ###");
+    webserial->print("Motion stopped after ");
+    webserial->print(int(g_ul_PIR_time_span));
+    webserial->println(" s");
 
     digitalWrite(LED_PIN, HIGH); // due to negative logic of internal Wifi LED of Wemos D1 mini
 

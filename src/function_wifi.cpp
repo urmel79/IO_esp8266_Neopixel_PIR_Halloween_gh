@@ -2,6 +2,8 @@
 
 // #include "function_mqtt.hpp"
 #include "function_ota.hpp"
+#include "function_webserial.hpp"
+// #include <WebSerial.h>
 
 WiFiEventHandler wifiConnectHandler;
 WiFiEventHandler wifiDisconnectHandler;
@@ -42,6 +44,11 @@ void onWifiConnect(const WiFiEventStationModeGotIP& event) {
   Serial.println(WiFi.RSSI());
 
   function_ota_setup(HOSTNAME);   // setup OTA functionality
+
+  WebSerialClass *ws = function_webserial_init();  // setup WebSerial functionality
+
+  ws->println("Das ist ein Test.");
+
 
   // connectToMqtt();
   // connectMqttPubTasks();
