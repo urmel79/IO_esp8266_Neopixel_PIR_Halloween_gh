@@ -8,7 +8,13 @@ The basic idea comes from the blog at AZ-Delivery: https://www.az-delivery.de/bl
 
 ## Visual impression
 
-(Image follows)
+Here you can see the complete Halloween Pumpkin arrangement:
+
+![Halloween Pumpkin complete](./doc/media/Halloween_pumpkin_complete.jpeg
+
+This is an image of the breadboard mounted on the LiPo battery pack:
+
+![Halloween Pumpkin breadboard](./doc/media/Halloween_pumpkin_breadboard.jpeg
 
 (Video follows)
 
