@@ -15,6 +15,9 @@
 // Implementation of the Arduino software serial for ESP8266/ESP32.
 // Important: v5.0.4 is the latest version what compiles without errors
 // (current versions spill massive errors, maybe about interrupt handling?)
+// Update: v5.3.4 does compile again without errors (@TODO: integration test pending)
+//          => does not compile in other projects => why? => so going back to v5.0.4
+// Update to EspSoftwareSerial v6.4.0 (latest): API of begin() function has changed and no return value any more
 #include <SoftwareSerial.h> //Included SoftwareSerial Library
 
 // install "DFPlayer Mini Mp3 by Makuna"
@@ -39,57 +42,6 @@
     DfMp3_Error_PacketChecksum,
     DfMp3_Error_General = 0xff
 };*/
-
-// // implement a notification class,
-// // its member methods will get called
-// void Mp3Notify::OnError(uint16_t errorCode) {
-//   // see DfMp3_Error for code meaning
-//   Serial.println();
-//   Serial.print("Com Error 0x");
-//   Serial.println(errorCode, HEX);
-// }
-//
-// void Mp3Notify::OnPlayFinished(uint16_t globalTrack) {
-//   Serial.println();
-//   Serial.print("Play finished for #");
-//   Serial.println(globalTrack);
-// }
-//
-// void Mp3Notify::OnCardOnline(uint16_t code) {
-//   Serial.println();
-//   Serial.print("Card online ");
-//   Serial.println(code);
-// }
-//
-// void Mp3Notify::OnUsbOnline(uint16_t code) {
-//   Serial.println();
-//   Serial.print("USB Disk online ");
-//   Serial.println(code);
-// }
-//
-// void Mp3Notify::OnCardInserted(uint16_t code) {
-//   Serial.println();
-//   Serial.print("Card inserted ");
-//   Serial.println(code);
-// }
-//
-// void Mp3Notify::OnUsbInserted(uint16_t code) {
-//   Serial.println();
-//   Serial.print("USB Disk inserted ");
-//   Serial.println(code);
-// }
-//
-// void Mp3Notify::OnCardRemoved(uint16_t code) {
-//   Serial.println();
-//   Serial.print("Card removed ");
-//   Serial.println(code);
-// }
-//
-// void Mp3Notify::OnUsbRemoved(uint16_t code) {
-//   Serial.println();
-//   Serial.print("USB Disk removed ");
-//   Serial.println(code);
-// }
 
 // inline implementation of a notification class,
 // its member methods will get called
@@ -169,27 +121,22 @@ public:
 
 // Some arduino boards only have one hardware serial port, so a software serial port is needed instead.
 // comment out the above definition and uncomment these lines
-//SoftwareSerial secondarySerial(10, 11); // RX, TX
-SoftwareSerial mySoftwareSerial(D2, D1); // // RxD: GPIO4 (D2), TxD: GPIO5 (D1)
+// SoftwareSerial mySoftwareSerial(D2, D1); // RxD: GPIO4 (D2), TxD: GPIO5 (D1)
+SoftwareSerial mySoftwareSerial;
 
 // instance a DFMiniMp3 object,
 DFMiniMp3<SoftwareSerial, Mp3Notify> mp3(mySoftwareSerial);
 
-bool initSS_mp3() {
-  bool status;
+void initSS_mp3() {
+  // RxD: GPIO4 (D2), TxD: GPIO5 (D1)
+  mySoftwareSerial.begin(BAUD_RATE, SWSERIAL_8N1, D2, D1, false, 95, 11);
 
-  status = mySoftwareSerial.begin(BAUD_RATE);
-  if (!status) Serial.println("DFPlayer: Something is wrong with the software serial line to MP3Player module.");
-
-  return status;
 }
 
 void function_mp3_setup() {
   Serial.println("DFPlayer: Initializing DFPlayer ...");
 
-  if ( !initSS_mp3() ) {
-   ; // wait for serial port to connect
-  }
+  initSS_mp3();
 
   mp3.begin();
 
@@ -199,7 +146,7 @@ void function_mp3_setup() {
   uint16_t volume = mp3.getVolume();
   Serial.print("DFPlayer: volume ");
   Serial.println(volume);
-  mp3.setVolume(25); // volume range: 0 - 30
+  mp3.setVolume(1); // volume range: 0 - 30
 
   uint16_t count = mp3.getTotalFolderCount();
   Serial.print("DFPlayer: total folders on sdcard ");

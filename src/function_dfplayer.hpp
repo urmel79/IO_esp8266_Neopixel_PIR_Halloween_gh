@@ -27,7 +27,7 @@
 //   void OnUsbRemoved(uint16_t code);
 // };
 
-bool initSS_mp3();
+void initSS_mp3();
 
 void function_mp3_setup();
 
