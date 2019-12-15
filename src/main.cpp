@@ -9,28 +9,32 @@
 #include "function_fastled_pir.hpp"
 
 void setup() {
-
-  Serial.begin(9600);
+  // Serial.begin(9600);
+  Serial.begin(57600);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
   configureWifi();
 
-  delay(2000); // sanity delay
+  delay(1000); // sanity delay
 
   // configureMqtt(); // setup MQTT functionality
 
   connectToWifi();
 
+  delay(1000); // sanity delay
+
   function_pir_setup();
 
-  delay(2000); // sanity delay
+  delay(1000); // sanity delay
   function_fastled_setup();
 }
 
 void loop() {
-  function_ota_handle();  // call handler function for OTA
+  if (get_wifi_isConnected()) {
+    function_ota_handle();  // call handler function for OTA
+  }
 
   function_pir_change_palettes();
 
