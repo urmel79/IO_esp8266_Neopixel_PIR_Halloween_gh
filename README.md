@@ -85,10 +85,6 @@ sd:/mp3/0003_xxx.mp3
 
 This project is licensed under the terms of "GNU General Public License v3.0". For details see [LICENSE](LICENSE).
 
-## Todo and known issues
-
-[issue 2019-12-07] If esp8266 cannot connect to wifi at any reason, the program stucks.
-
 
 
 
