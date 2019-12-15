@@ -21,9 +21,18 @@ void configureWifi() {
 }
 
 void connectToWifi() {
-  // Serial.println("Connecting to Wi-Fi ...");
-  // WiFi.mode(WIFI_STA);  // client mode
+  Serial.println("Connecting to Wi-Fi...");
+  WiFi.mode(WIFI_STA);  // client mode
+
+  // [bug] external interrupts conflict with wifi connection attempts and
+  // ota updates and lead to sporadic crashes!
+  // [fix (workaround)] disable external interrupts temporarily
+  // reference https://www.mikrocontroller.net/topic/460256#5573848
+  ETS_GPIO_INTR_DISABLE();
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+  // enable external interrupts again
+  ETS_GPIO_INTR_ENABLE();
 }
 
 bool get_wifi_isConnected() {

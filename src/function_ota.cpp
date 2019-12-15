@@ -15,6 +15,12 @@ void function_ota_setup( const char *chr_hostname ) {
   // ArduinoOTA.setPasswordHash("21232f297a57a5a743894a0e4a801fc3");
 
   ArduinoOTA.onStart([]() {
+    // [bug] external interrupts conflict with wifi connection attempts and
+    // ota updates and lead to sporadic crashes!
+    // [fix (workaround)] disable external interrupts temporarily
+    // reference https://www.mikrocontroller.net/topic/460256#5573848
+    ETS_GPIO_INTR_DISABLE();
+
     String type;
     if (ArduinoOTA.getCommand() == U_FLASH) {
       type = "sketch";
@@ -27,10 +33,17 @@ void function_ota_setup( const char *chr_hostname ) {
   });
 
   ArduinoOTA.onEnd([]() {
+    // enable external interrupts again
+    ETS_GPIO_INTR_ENABLE();
+
     Serial.println("\nEnd");
   });
 
   ArduinoOTA.onProgress([](unsigned int progress, unsigned int total) {
+    // disable external interrupts (they cause sporadic crashes!)
+    // reference https://www.mikrocontroller.net/topic/460256#5573848
+    ETS_GPIO_INTR_DISABLE();
+
     Serial.printf("Progress: %u%%\r", (progress / (total / 100)));
   });
 
